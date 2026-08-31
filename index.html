@@ -1,3 +1,5 @@
+<!doctype html>
+<html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ayush Malik</title>
@@ -193,15 +195,15 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
     <h1 class="name" id="bigname">Ayush Malik</h1>
     <p class="roles"><span id="typed"></span><span class="cursor"></span></p>
     <div class="badges">
-      <span class="badge">🚀 <b>YC Startup School India</b> — top ~2,500 of 25,000+</span>
+      <span class="badge">🚀 <b>YC Startup School India</b> — selected from 25,000+ applicants</span>
       <span class="badge">🏆 <b>SIH National Winner</b> · Govt of India</span>
       <span class="badge">🛰️ <b>DRDO</b> ML Research Intern</span>
       <span class="badge">🤖 Builder of <b>LLM & AI-agent products</b></span>
       <span class="badge">🎓 <b>BITS Pilani</b> · ECE</span>
     </div>
     <div class="stats">
-      <div class="stat"><div class="num" data-count="2000" data-suffix="+">0</div><div class="lbl">users on Tori</div></div>
-      <div class="stat"><div class="num" data-count="25000" data-suffix="+">0</div><div class="lbl">applicants outranked</div></div>
+      <div class="stat"><div class="num" data-count="4" data-suffix="">0</div><div class="lbl">messages to book</div></div>
+      <div class="stat"><div class="num" data-count="25000" data-suffix="+">0</div><div class="lbl">YC applicant pool</div></div>
       <div class="stat"><div class="num" data-count="45" data-suffix="%">0</div><div class="lbl">no-shows cut</div></div>
       <div class="stat"><div class="num" data-count="95" data-suffix="%">0</div><div class="lbl">friction reduced</div></div>
     </div>
@@ -250,7 +252,7 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
   <div class="shelf">
     <div class="medal reveal">
       <div class="orb"><div class="halo" style="border-color:var(--amber)"></div><div class="coin" style="background:radial-gradient(circle at 35% 30%,#fde68a,#b45309)">🚀</div></div>
-      <h3>Y Combinator Startup School India</h3><span class="big" style="color:var(--amber)">~2,500 / 25,000+</span>
+      <h3>Y Combinator Startup School India</h3><span class="big" style="color:var(--amber)">25,000+</span>
       <p>Selected in Bengaluru from applications across India</p>
     </div>
     <div class="medal reveal">
@@ -305,7 +307,7 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
         <div class="xrole">Founder's Office Associate — LLM-powered WhatsApp AI agent</div>
         <ul>
           <li>Engineered an <b>LLM conversational agent</b> — NLP intent understanding, <b>prompt engineering & tool calling</b> — that completes an <b>end-to-end booking in 4 WhatsApp messages</b></li>
-          <li><b>2,000+ users across 3 cities</b>; onboarded hospitals, clinics, physio & mental-health centres</li>
+          <li><b>Scaled across 3 cities</b> — Bangalore, Hyderabad & Jaipur; onboarded hospitals, clinics, physio & mental-health centres</li>
           <li>Automated reminders via the Meta Cloud API — <b>no-shows down 45%</b>, operational friction down <b>95%</b></li>
           <li>Owned <b>product 0-to-1</b>: roadmap, PRDs, user research, KPIs, go-to-market & partner onboarding</li>
         </ul>
@@ -578,9 +580,11 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
     btn.addEventListener('click', function(e){
       e.preventDefault(); e.stopPropagation();
       var v = btn.dataset.copy;
-      function done(){ var t = document.getElementById('toast'); t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 1600); }
-      if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(v).then(done, done); }
-      else { done(); }
+      function done(){ var t = document.getElementById('toast'); t.textContent = 'Copied ✓'; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 1600); }
+      function legacy(){ try { var ta = document.createElement('textarea'); ta.value = v; ta.setAttribute('readonly',''); ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0'; document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, v.length); var ok = document.execCommand('copy'); document.body.removeChild(ta); return ok; } catch (err) { return false; } }
+      function fail(){ var t = document.getElementById('toast'); t.textContent = v; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 3200); }
+      if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(v).then(done, function(){ if (legacy()) done(); else fail(); }); }
+      else { if (legacy()) done(); else fail(); }
     });
   });
 
@@ -597,3 +601,4 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
   }
 })();
 </script>
+</html>
