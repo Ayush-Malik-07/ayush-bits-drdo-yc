@@ -109,6 +109,7 @@ a{color:inherit}
 .pc1{left:5.5vw;top:14%;rotate:-8deg;animation-delay:1.5s,0s}
 .pc2{right:5.5vw;top:10%;rotate:7deg;animation-delay:1.7s,1.4s}
 .pc3{left:10vw;bottom:6%;rotate:5deg;animation-delay:1.9s,2.8s}
+.pc4{right:9vw;bottom:5%;rotate:-5deg;animation-delay:2.1s,4.2s}
 @media (max-width:1024px){.photodeck{display:none}}
 /* ---------- credential cards ---------- */
 .creds{display:grid;grid-template-columns:repeat(auto-fit,minmax(203px,1fr));gap:13px;
@@ -141,7 +142,7 @@ a{color:inherit}
   .orb{animation:none}
   .cred,.pname,.degree,.bigline span,.avatar{animation-duration:.01ms;animation-delay:0s}
   .avatar::before,.avatar::after{animation:none}
-  .cred,.pod,.medal,.xcard,.edu,.pc{animation-iteration-count:1;translate:none}
+  .cred,.pod,.medal,.xcard,.edu,.pc,.proof{animation-iteration-count:1;translate:none}
   .cred::after{animation:none;opacity:0}
   .hero .inner{transition:none}
 }
@@ -195,6 +196,14 @@ a{color:inherit}
 .copybtn:focus-visible,a:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 /* ---------- achievements shelf ---------- */
 .shelf{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.proof{position:relative;margin:0 0 26px;border:1px solid rgba(251,191,36,.34);border-radius:18px;
+  overflow:hidden;background:var(--surface);box-shadow:0 26px 70px rgba(0,0,0,.55),0 0 46px rgba(251,191,36,.09);
+  animation:bigfloat 9.5s ease-in-out infinite;transition:box-shadow .35s ease}
+.proof:hover{box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 70px rgba(251,191,36,.2)}
+.proof img{display:block;width:100%;height:auto}
+.proof figcaption{font-size:13.2px;line-height:1.6;color:var(--muted);padding:13px 18px;
+  border-top:1px solid var(--line);background:var(--bg2);position:relative;z-index:2}
+.proof figcaption b{color:var(--amber);font-weight:700}
 .medal{border:1px solid var(--line);border-radius:16px;padding:26px 18px 20px;background:linear-gradient(170deg,var(--surface),var(--bg2));text-align:center;position:relative;overflow:hidden;transition:transform .35s}
 .medal:hover{transform:translateY(-8px) scale(1.02)}
 .orb{position:relative;width:84px;height:84px;margin:0 auto 14px}
@@ -319,6 +328,7 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
     <figure class="pc pc1"><img src="img/yc.jpg" alt="Ayush Malik at Y Combinator Startup School India" loading="lazy"><figcaption>YC Startup School India</figcaption></figure>
     <figure class="pc pc2"><img src="img/tower.jpg" alt="BITS Pilani clock tower" loading="lazy"><figcaption>BITS Pilani campus</figcaption></figure>
     <figure class="pc pc3"><img src="img/drdo.jpg" alt="Defence Research &amp; Development Organisation" loading="lazy"><figcaption>DRDO · organisation</figcaption></figure>
+    <figure class="pc pc4"><img src="img/sih.jpg" alt="Ayush Malik receiving the Smart India Hackathon 2022 winner cheque" loading="lazy"><figcaption>SIH 2022 · National Winner</figcaption></figure>
   </div>
   <div class="orbs" aria-hidden="true"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span></div>
   <div class="inner">
@@ -366,6 +376,11 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
 <section class="section">
   <h2 class="sec-title reveal">Trophy shelf <span class="tag" style="color:var(--amber);border:1px solid var(--amber)">proof of work</span></h2>
   <p class="sec-sub reveal">National-level wins, not participation certificates.</p>
+  <figure class="proof reveal">
+    <img src="img/sih-wide.jpg" alt="Ayush Malik receiving the Smart India Hackathon 2022 Grand Finale winner cheque" loading="lazy">
+    <span class="shine"></span>
+    <figcaption><b>Smart India Hackathon 2022 · Grand Finale, August 12</b> — winner's cheque made out to <b>Ayush Malik</b>, ₹25,000. Organised by the Ministry of Education's Innovation Cell &amp; AICTE.</figcaption>
+  </figure>
   <div class="shelf">
     <div class="medal reveal">
       <div class="orb"><div class="halo" style="border-color:var(--amber)"></div><div class="coin" style="background:radial-gradient(circle at 35% 30%,#fde68a,#b45309)">🚀</div></div>
@@ -789,6 +804,7 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
   if (!reduced){
     document.querySelectorAll('.cred').forEach(function(el){ tilt(el, 11, 6); });
     document.querySelectorAll('.medal').forEach(function(el){ tilt(el, 9, 5); });
+    document.querySelectorAll('.proof').forEach(function(el){ tilt(el, 5, 4); });
     document.querySelectorAll('.pod:not(.holo)').forEach(function(el){ tilt(el, 7, 6); });
   }
 
