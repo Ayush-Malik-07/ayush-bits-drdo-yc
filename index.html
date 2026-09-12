@@ -27,8 +27,19 @@ a{color:inherit}
 .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 16px;overflow:hidden}
 .hero .inner{position:relative;z-index:2;max-width:1000px}
 .hail{font-family:var(--mono);color:var(--cyan);letter-spacing:.35em;text-transform:uppercase;font-size:12px;animation:fadeDown 1s .2s both}
-.name{font-family:var(--disp);font-weight:900;font-size:clamp(40px,9vw,104px);line-height:1.04;margin:14px 0 6px}
-.name span{display:inline-block;opacity:0;transform:translateY(.6em) rotate(8deg);animation:pop .6s cubic-bezier(.2,.8,.2,1.2) forwards}
+.namewrap{display:block;transform-style:preserve-3d;margin:12px 0 4px}
+.pname{display:block;font-family:var(--disp);font-weight:800;font-size:clamp(20px,4.5vw,52px);
+  line-height:1.06;letter-spacing:-.01em;color:var(--ink);transform:translateZ(26px);
+  opacity:0;animation:pnameIn .9s .15s both}
+.bigline{display:block;font-family:var(--disp);font-weight:900;font-size:clamp(40px,9vw,104px);
+  line-height:1.02;letter-spacing:-.02em;transform:translateZ(74px)}
+.bigline span{display:inline-block;opacity:0;transform:translateY(.5em) rotateX(-72deg);
+  animation:pop3d .75s cubic-bezier(.2,.8,.2,1.2) forwards;
+  text-shadow:0 1px 0 rgba(0,0,0,.45),0 2px 0 rgba(0,0,0,.36),0 3px 0 rgba(0,0,0,.28),
+    0 4px 0 rgba(0,0,0,.2),0 9px 24px rgba(0,0,0,.55),0 0 38px currentColor}
+.degree{display:block;font-family:var(--mono);font-weight:600;font-size:clamp(12px,1.7vw,18px);
+  letter-spacing:.44em;text-transform:uppercase;color:var(--muted);margin-top:12px;
+  transform:translateZ(44px);opacity:0;animation:degIn .9s 1.15s both}
 .grad{background:linear-gradient(100deg,var(--cyan) 10%,var(--magenta) 45%,var(--amber) 80%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .roles{font-family:var(--mono);font-size:clamp(14px,2.4vw,20px);color:var(--ink);min-height:1.8em;margin-top:8px}
 .roles .cursor{display:inline-block;width:.6em;border-bottom:2px solid var(--lime);animation:blink 1s steps(1) infinite;transform:translateY(-2px)}
@@ -48,6 +59,67 @@ a{color:inherit}
 .stat:nth-child(1) .num{color:var(--magenta)}.stat:nth-child(2) .num{color:var(--amber)}
 .stat:nth-child(3) .num{color:var(--cyan)}.stat:nth-child(4) .num{color:var(--lime)}
 .scrolldown{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:var(--muted);font-size:22px;animation:bob 1.6s ease-in-out infinite;z-index:2;text-decoration:none}
+/* ---------- campus plate ---------- */
+.campus{position:absolute;inset:-6% 0 -6%;z-index:0;pointer-events:none;will-change:transform;
+  background:url(img/campus.jpg) center 26%/cover no-repeat;opacity:.72;
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.6) 48%,transparent 90%);
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.6) 48%,transparent 90%)}
+.campus::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 36%,rgba(7,10,20,.26),rgba(7,10,20,.86) 74%)}
+/* ---------- portrait ---------- */
+.avatar{position:relative;width:clamp(96px,13.5vw,148px);height:clamp(96px,13.5vw,148px);
+  margin:0 auto 2px;transform:translateZ(98px);opacity:0;
+  animation:avIn 1s .05s cubic-bezier(.2,.8,.2,1.15) both}
+.avatar::before{content:"";position:absolute;inset:-6px;border-radius:50%;
+  background:conic-gradient(from 0deg,var(--cyan),var(--magenta),var(--amber),var(--lime),var(--cyan));
+  animation:orbit 6s linear infinite}
+.avatar::after{content:"";position:absolute;inset:-22px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(34,211,238,.34),transparent 68%);
+  animation:glowpulse 3.6s ease-in-out infinite}
+.avatar img{position:relative;z-index:1;width:100%;height:100%;border-radius:50%;object-fit:cover;
+  object-position:50% 32%;border:3px solid var(--bg);filter:saturate(1.06) contrast(1.05);display:block}
+/* ---------- 3D depth stage ---------- */
+.hero{perspective:1400px;perspective-origin:50% 42%}
+.hero .inner{transform-style:preserve-3d;will-change:transform;transition:transform .2s ease-out}
+.orbs{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(72px);opacity:.42;will-change:transform}
+.o1{width:46vmax;height:46vmax;left:-13vmax;top:-15vmax;background:radial-gradient(circle,var(--cyan),transparent 68%);animation:drift1 24s ease-in-out infinite}
+.o2{width:38vmax;height:38vmax;right:-11vmax;top:6vmax;background:radial-gradient(circle,var(--magenta),transparent 68%);animation:drift2 29s ease-in-out infinite}
+.o3{width:34vmax;height:34vmax;left:26vmax;bottom:-17vmax;background:radial-gradient(circle,var(--violet),transparent 68%);animation:drift3 33s ease-in-out infinite}
+/* ---------- credential cards ---------- */
+.creds{display:grid;grid-template-columns:repeat(auto-fit,minmax(252px,1fr));gap:14px;
+  margin:34px auto 0;max-width:940px;text-align:left;transform:translateZ(36px)}
+.cred{position:relative;border:1px solid var(--line);border-radius:15px;padding:15px 17px 14px;
+  background:linear-gradient(158deg,rgba(21,28,47,.92),rgba(11,15,29,.8));backdrop-filter:blur(9px);
+  overflow:hidden;transform-style:preserve-3d;opacity:0;
+  animation:cardin .85s cubic-bezier(.2,.75,.25,1) forwards;
+  transition:box-shadow .3s ease,border-color .3s ease}
+.cred::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,transparent 33%,rgba(255,255,255,.12) 48%,transparent 63%);
+  transform:translateX(-130%);animation:sweep 5.5s ease-in-out infinite}
+.cnum{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;font-weight:600}
+.cmain{display:block;font-size:14.5px;font-weight:600;line-height:1.44;margin:7px 0 6px;color:var(--ink)}
+.cmain b{font-weight:800}
+.csub{display:block;font-family:var(--mono);font-size:11.5px;line-height:1.4;letter-spacing:.04em;color:var(--muted)}
+.cred:nth-child(1){animation-delay:1.3s;border-left:3px solid var(--lime)}
+.cred:nth-child(2){animation-delay:1.45s;border-left:3px solid var(--cyan)}
+.cred:nth-child(3){animation-delay:1.6s;border-left:3px solid var(--amber)}
+.cred:nth-child(4){animation-delay:1.75s;border-left:3px solid var(--magenta)}
+.cred:nth-child(1) .cnum,.cred:nth-child(1) .cmain b{color:var(--lime)}
+.cred:nth-child(2) .cnum,.cred:nth-child(2) .cmain b{color:var(--cyan)}
+.cred:nth-child(3) .cnum,.cred:nth-child(3) .cmain b{color:var(--amber)}
+.cred:nth-child(4) .cnum,.cred:nth-child(4) .cmain b{color:var(--magenta)}
+.cred:nth-child(1):hover{box-shadow:0 18px 44px rgba(163,230,53,.2)}
+.cred:nth-child(2):hover{box-shadow:0 18px 44px rgba(34,211,238,.2)}
+.cred:nth-child(3):hover{box-shadow:0 18px 44px rgba(251,191,36,.2)}
+.cred:nth-child(4):hover{box-shadow:0 18px 44px rgba(232,121,249,.2)}
+@media (prefers-reduced-motion: reduce){
+  .orb{animation:none}
+  .cred,.pname,.degree,.bigline span,.avatar{animation-duration:.01ms;animation-delay:0s}
+  .avatar::before,.avatar::after{animation:none}
+  .cred::after{animation:none;opacity:0}
+  .hero .inner{transition:none}
+}
 /* ---------- shared section chrome ---------- */
 .section{position:relative;max-width:1080px;margin:0 auto;padding:90px 20px 30px;z-index:1}
 .sec-title{font-family:var(--disp);font-weight:800;font-size:clamp(24px,4.4vw,40px);margin-bottom:8px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
@@ -150,6 +222,11 @@ a{color:inherit}
 .edu h3{font-family:var(--disp);font-size:clamp(17px,3vw,23px);font-weight:600}
 .edu .branch{color:var(--amber);font-weight:700;font-size:14.5px;margin-top:2px}
 .edu p{color:var(--muted);font-size:13px;margin-top:8px;max-width:60ch}
+.edu::before{content:"";position:absolute;inset:0;z-index:0;
+  background:url(img/campus.jpg) center 26%/cover no-repeat;opacity:.26;
+  -webkit-mask-image:linear-gradient(100deg,transparent 24%,rgba(0,0,0,.95));
+  mask-image:linear-gradient(100deg,transparent 24%,rgba(0,0,0,.95))}
+.edu > *{position:relative;z-index:1}
 .edu .shine{position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.07) 48%,transparent 62%);transform:translateX(-120%);animation:sweep 4.5s ease-in-out infinite}
 /* ---------- footer ---------- */
 footer{max-width:1080px;margin:60px auto 0;padding:50px 20px 70px;text-align:center;border-top:1px solid var(--line)}
@@ -176,6 +253,15 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
 @keyframes blinkeye{0%,90%,100%{transform:scaleY(1)}94%{transform:scaleY(.06)}}
 @keyframes slide{to{transform:translateX(-50%)}}
 @keyframes hue{to{filter:hue-rotate(360deg)}}
+@keyframes pop3d{to{opacity:1;transform:none}}
+@keyframes pnameIn{from{opacity:0;transform:translateY(-18px) translateZ(26px)}to{opacity:1;transform:translateZ(26px)}}
+@keyframes degIn{from{opacity:0;transform:translateY(14px) translateZ(44px)}to{opacity:1;transform:translateZ(44px)}}
+@keyframes cardin{from{opacity:0;transform:translateY(28px) rotateX(-20deg)}to{opacity:1;transform:none}}
+@keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(7vmax,5vmax) scale(1.14)}}
+@keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-6vmax,7vmax) scale(.88)}}
+@keyframes avIn{from{opacity:0;transform:translateZ(98px) scale(.55) rotate(-14deg)}to{opacity:1;transform:translateZ(98px) scale(1) rotate(0)}}
+@keyframes glowpulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.09)}}
+@keyframes drift3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-8vmax,-5vmax) scale(1.2)}}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001s !important;animation-iteration-count:1 !important;transition-duration:.001s !important}
   .reveal{opacity:1;transform:none}
@@ -189,17 +275,39 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
 
 <!-- ================= HERO ================= -->
 <header class="hero">
+  <div class="campus" aria-hidden="true"></div>
   <canvas id="field"></canvas>
+  <div class="orbs" aria-hidden="true"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span></div>
   <div class="inner">
+    <div class="avatar"><img src="img/ayush.jpg" alt="Ayush Malik" width="420" height="420"></div>
     <p class="hail">// hello world, I am</p>
-    <h1 class="name" id="bigname">Ayush Malik</h1>
+    <h1 class="namewrap">
+      <span class="pname">Ayush Malik</span>
+      <span class="bigline" id="bigname">BITS PILANI</span>
+      <span class="degree">B.Tech</span>
+    </h1>
     <p class="roles"><span id="typed"></span><span class="cursor"></span></p>
-    <div class="badges">
-      <span class="badge">🚀 <b>YC Startup School India</b> — selected from 25,000+ applicants</span>
-      <span class="badge">🏆 <b>SIH National Winner</b> · Govt of India</span>
-      <span class="badge">🛰️ <b>DRDO</b> ML Research Intern</span>
-      <span class="badge">🤖 Builder of <b>LLM & AI-agent products</b></span>
-      <span class="badge">🎓 <b>BITS Pilani</b> · ECE</span>
+    <div class="creds">
+      <article class="cred">
+        <span class="cnum">01</span>
+        <span class="cmain">Founded <b>Tori</b> — making your WhatsApp your Personal Assistant.</span>
+        <span class="csub">LLM · AI Agent</span>
+      </article>
+      <article class="cred">
+        <span class="cnum">02</span>
+        <span class="cmain"><b>Machine Learning Intern</b> @ the National Defence Org</span>
+        <span class="csub">DRDO — Defence Research Org of India</span>
+      </article>
+      <article class="cred">
+        <span class="cnum">03</span>
+        <span class="cmain">Stood <b>TOP</b> out of <b>25,000+ applicants</b> for YC Startup School event, Bangalore, India</span>
+        <span class="csub">Extremely competitive selection process</span>
+      </article>
+      <article class="cred">
+        <span class="cnum">04</span>
+        <span class="cmain"><b>SIHackathon</b> National Winner</span>
+        <span class="csub">SIH — Smart India Hackathon · National Level Winner</span>
+      </article>
     </div>
     <div class="stats">
       <div class="stat"><div class="num" data-count="4" data-suffix="">0</div><div class="lbl">messages to book</div></div>
@@ -425,7 +533,7 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
   <p style="font-family:var(--disp);font-weight:600;font-size:clamp(18px,3.4vw,28px);margin-bottom:8px">Let's build something <span class="grad">unreasonable</span>.</p>
   <p style="color:var(--muted);font-size:13.5px;margin-bottom:28px">Recruiter robot? Here's the file you actually parse:</p>
   <a class="bigbtn" href="Ayush_Malik_Resume.pdf" target="_blank" rel="noopener" download>⏏ &nbsp;Download ATS-friendly PDF</a>
-  <p class="mini">Ayush Malik · f20251403@pilani.bits-pilani.ac.in · +91 98280 44677 · linkedin.com/in/polymath-ayush<br>Built with an unreasonable number of animations, on purpose.</p>
+  <p class="mini">Ayush Malik · f20251403@pilani.bits-pilani.ac.in · +91 98280 44677 · linkedin.com/in/polymath-ayush<br>Built with an unreasonable number of animations, on purpose.<br>Campus photograph © Navaneeth.</p>
 </footer>
 
 <script>
@@ -438,15 +546,14 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
   txt.split('').forEach(function(ch, i){
     var s = document.createElement('span');
     s.textContent = ch === ' ' ? ' ' : ch;
-    s.style.animationDelay = (0.35 + i * 0.055) + 's';
+    s.style.animationDelay = (0.55 + i * 0.06) + 's';
     var PAL = ['#22D3EE','#67E8F9','#A78BFA','#E879F9','#FB7185','#FBBF24','#A3E635'];
     s.style.color = PAL[i % PAL.length];
-    s.style.textShadow = '0 0 28px ' + PAL[i % PAL.length] + '66';
     nameEl.appendChild(s);
   });
 
   /* role typewriter */
-  var roles = ['AI Agent Builder 🤖','DRDO ML Research Intern 🛰️',"Founder's Office @ Tori Ate ⚡",'YC Startup School India 🚀','SIH National Winner 🏆','Consulting @ BITS Pilani 📊'];
+  var roles = ['AI Agent Builder 🤖','DRDO ML Research Intern 🛰️','Founder @ Tori Ate ⚡','YC Startup School India 🚀','SIH National Winner 🏆','Consulting @ BITS Pilani 📊'];
   var typedEl = document.getElementById('typed'), ri = 0, ci = 0, deleting = false;
   function typeLoop(){
     var word = roles[ri];
@@ -598,6 +705,57 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
       card.style.transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
     });
     holo.addEventListener('pointerleave', function(){ card.style.transform = 'none'; });
+  }
+
+  /* ---------- 3D hero parallax ---------- */
+  var heroEl = document.querySelector('.hero'), innerEl = heroEl && heroEl.querySelector('.inner');
+  if (heroEl && innerEl && !reduced){
+    var hraf = null, tx = 0, ty = 0;
+    heroEl.addEventListener('pointermove', function(e){
+      var r = heroEl.getBoundingClientRect();
+      tx = (e.clientX - r.left) / r.width - .5;
+      ty = (e.clientY - r.top) / r.height - .5;
+      if (!hraf) hraf = requestAnimationFrame(function(){
+        hraf = null;
+        innerEl.style.transform = 'rotateY(' + (tx * 9).toFixed(2) + 'deg) rotateX(' + (-ty * 7).toFixed(2) + 'deg)';
+      });
+    }, { passive: true });
+    heroEl.addEventListener('pointerleave', function(){ innerEl.style.transform = ''; });
+  }
+
+  /* ---------- card tilt ---------- */
+  function tilt(el, max, lift){
+    el.addEventListener('pointermove', function(e){
+      var r = el.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      el.style.transform = 'perspective(760px) rotateY(' + (x * max).toFixed(2) + 'deg) rotateX(' +
+        (-y * max).toFixed(2) + 'deg) translateY(-' + lift + 'px)';
+    }, { passive: true });
+    el.addEventListener('pointerleave', function(){ el.style.transform = ''; });
+  }
+  if (!reduced){
+    document.querySelectorAll('.cred').forEach(function(el){ tilt(el, 11, 6); });
+    document.querySelectorAll('.medal').forEach(function(el){ tilt(el, 9, 5); });
+    document.querySelectorAll('.pod:not(.holo)').forEach(function(el){ tilt(el, 7, 6); });
+  }
+
+  /* ---------- orb scroll parallax ---------- */
+  var campusEl = document.querySelector('.campus');
+  var orbs = [].slice.call(document.querySelectorAll('.orb'));
+  if (orbs.length && !reduced){
+    var oraf = null;
+    addEventListener('scroll', function(){
+      if (oraf) return;
+      oraf = requestAnimationFrame(function(){
+        oraf = null;
+        var y = scrollY;
+        if (y > innerHeight * 1.2) return;
+        orbs.forEach(function(o, i){
+          o.style.translate = '0 ' + (y * (0.12 + i * 0.07)).toFixed(1) + 'px';
+        });
+        if (campusEl) campusEl.style.transform = 'translateY(' + (y * 0.22).toFixed(1) + 'px) scale(' + (1 + y / 9000).toFixed(4) + ')';
+      });
+    }, { passive: true });
   }
 })();
 </script>
