@@ -61,20 +61,22 @@ a{color:inherit}
 .scrolldown{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:var(--muted);font-size:22px;animation:bob 1.6s ease-in-out infinite;z-index:2;text-decoration:none}
 /* ---------- campus plate ---------- */
 .campus{position:absolute;inset:-6% 0 -6%;z-index:0;pointer-events:none;will-change:transform;
-  background:url(img/campus.jpg) center 26%/cover no-repeat;opacity:.72;
+  background:url(img/campus.jpg) center 8%/contain no-repeat;opacity:.92;
   -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.6) 48%,transparent 90%);
   mask-image:linear-gradient(180deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.6) 48%,transparent 90%)}
 .campus::after{content:"";position:absolute;inset:0;
-  background:radial-gradient(ellipse at 50% 36%,rgba(7,10,20,.26),rgba(7,10,20,.86) 74%)}
+  background:radial-gradient(ellipse at 50% 34%,rgba(7,10,20,.06),rgba(7,10,20,.62) 78%)}
 /* ---------- portrait ---------- */
 .avatar{position:relative;width:clamp(96px,13.5vw,148px);height:clamp(96px,13.5vw,148px);
   margin:0 auto 2px;transform:translateZ(98px);opacity:0;
   animation:avIn 1s .05s cubic-bezier(.2,.8,.2,1.15) both}
 .avatar::before{content:"";position:absolute;inset:-6px;border-radius:50%;
-  background:conic-gradient(from 0deg,var(--cyan),var(--magenta),var(--amber),var(--lime),var(--cyan));
-  animation:orbit 6s linear infinite}
+  background:none;border:3px solid #fff;
+  box-shadow:0 0 14px rgba(255,255,255,.95),0 0 34px rgba(255,255,255,.6),
+    0 0 64px rgba(255,255,255,.32),inset 0 0 14px rgba(255,255,255,.5);
+  animation:neon 2.6s ease-in-out infinite}
 .avatar::after{content:"";position:absolute;inset:-22px;border-radius:50%;pointer-events:none;
-  background:radial-gradient(circle,rgba(34,211,238,.34),transparent 68%);
+  background:radial-gradient(circle,rgba(255,255,255,.32),transparent 68%);
   animation:glowpulse 3.6s ease-in-out infinite}
 .avatar img{position:relative;z-index:1;width:100%;height:100%;border-radius:50%;object-fit:cover;
   object-position:50% 32%;border:3px solid var(--bg);filter:saturate(1.06) contrast(1.05);display:block}
@@ -86,13 +88,26 @@ a{color:inherit}
 .o1{width:46vmax;height:46vmax;left:-13vmax;top:-15vmax;background:radial-gradient(circle,var(--cyan),transparent 68%);animation:drift1 24s ease-in-out infinite}
 .o2{width:38vmax;height:38vmax;right:-11vmax;top:6vmax;background:radial-gradient(circle,var(--magenta),transparent 68%);animation:drift2 29s ease-in-out infinite}
 .o3{width:34vmax;height:34vmax;left:26vmax;bottom:-17vmax;background:radial-gradient(circle,var(--violet),transparent 68%);animation:drift3 33s ease-in-out infinite}
+/* ---------- floating photo deck ---------- */
+.photodeck{position:absolute;inset:0;z-index:1;pointer-events:none}
+.pc{position:absolute;width:clamp(128px,11.5vw,188px);border-radius:14px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.2);background:var(--surface);opacity:0;
+  box-shadow:0 26px 64px rgba(0,0,0,.62);will-change:transform,translate;
+  animation:pcIn 1.1s cubic-bezier(.2,.8,.2,1.1) forwards, pcFloat 9s ease-in-out infinite}
+.pc img{display:block;width:100%;height:auto}
+.pc figcaption{font-family:var(--mono);font-size:9.5px;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--muted);padding:6px 9px;background:rgba(7,10,20,.88)}
+.pc1{left:1vw;top:14%;rotate:-7deg;animation-delay:1.5s,0s}
+.pc2{right:1vw;top:10%;rotate:6deg;animation-delay:1.7s,1.4s}
+.pc3{left:2vw;bottom:8%;rotate:5deg;animation-delay:1.9s,2.8s}
+@media (max-width:1340px){.photodeck{display:none}}
 /* ---------- credential cards ---------- */
 .creds{display:grid;grid-template-columns:repeat(auto-fit,minmax(252px,1fr));gap:14px;
   margin:34px auto 0;max-width:940px;text-align:left;transform:translateZ(36px)}
 .cred{position:relative;border:1px solid var(--line);border-radius:15px;padding:15px 17px 14px;
   background:linear-gradient(158deg,rgba(21,28,47,.92),rgba(11,15,29,.8));backdrop-filter:blur(9px);
   overflow:hidden;transform-style:preserve-3d;opacity:0;
-  animation:cardin .85s cubic-bezier(.2,.75,.25,1) forwards;
+  animation:cardin .85s cubic-bezier(.2,.75,.25,1) forwards, bigfloat 6.5s ease-in-out infinite;
   transition:box-shadow .3s ease,border-color .3s ease}
 .cred::after{content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(115deg,transparent 33%,rgba(255,255,255,.12) 48%,transparent 63%);
@@ -101,10 +116,10 @@ a{color:inherit}
 .cmain{display:block;font-size:14.5px;font-weight:600;line-height:1.44;margin:7px 0 6px;color:var(--ink)}
 .cmain b{font-weight:800}
 .csub{display:block;font-family:var(--mono);font-size:11.5px;line-height:1.4;letter-spacing:.04em;color:var(--muted)}
-.cred:nth-child(1){animation-delay:1.3s;border-left:3px solid var(--lime)}
-.cred:nth-child(2){animation-delay:1.45s;border-left:3px solid var(--cyan)}
-.cred:nth-child(3){animation-delay:1.6s;border-left:3px solid var(--amber)}
-.cred:nth-child(4){animation-delay:1.75s;border-left:3px solid var(--magenta)}
+.cred:nth-child(1){animation-delay:1.3s,0s;border-left:3px solid var(--lime)}
+.cred:nth-child(2){animation-delay:1.45s,.9s;border-left:3px solid var(--cyan)}
+.cred:nth-child(3){animation-delay:1.6s,1.8s;border-left:3px solid var(--amber)}
+.cred:nth-child(4){animation-delay:1.75s,2.7s;border-left:3px solid var(--magenta)}
 .cred:nth-child(1) .cnum,.cred:nth-child(1) .cmain b{color:var(--lime)}
 .cred:nth-child(2) .cnum,.cred:nth-child(2) .cmain b{color:var(--cyan)}
 .cred:nth-child(3) .cnum,.cred:nth-child(3) .cmain b{color:var(--amber)}
@@ -117,6 +132,7 @@ a{color:inherit}
   .orb{animation:none}
   .cred,.pname,.degree,.bigline span,.avatar{animation-duration:.01ms;animation-delay:0s}
   .avatar::before,.avatar::after{animation:none}
+  .cred,.pod,.medal,.xcard,.edu,.pc{animation-iteration-count:1;translate:none}
   .cred::after{animation:none;opacity:0}
   .hero .inner{transition:none}
 }
@@ -131,6 +147,14 @@ a{color:inherit}
 .dock{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
 .pod{border:1px solid var(--line);border-radius:14px;background:linear-gradient(160deg,var(--surface),var(--bg2));padding:18px;position:relative;overflow:hidden;transition:transform .3s,border-color .3s}
 .pod:hover{transform:translateY(-6px)}
+.pod{animation:bigfloat 7.5s ease-in-out infinite}
+.pod:nth-child(2){animation-delay:1.1s}.pod:nth-child(3){animation-delay:2.2s}.pod:nth-child(4){animation-delay:3.3s}
+.medal{animation:bigfloat 8s ease-in-out infinite}
+.medal:nth-child(2){animation-delay:1.3s}.medal:nth-child(3){animation-delay:2.6s}.medal:nth-child(4){animation-delay:3.9s}
+.xcard{animation:bigfloat 9s ease-in-out infinite}
+.stop:nth-child(even) .xcard{animation-delay:1.6s}
+.stop:nth-child(3n) .xcard{animation-delay:3.2s}
+.edu{animation:bigfloat 8.5s ease-in-out infinite}
 .pod .podlbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
 /* email terminal */
 .term{border-color:rgba(163,230,53,.35)}
@@ -256,6 +280,11 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
 @keyframes pop3d{to{opacity:1;transform:none}}
 @keyframes pnameIn{from{opacity:0;transform:translateY(-18px) translateZ(26px)}to{opacity:1;transform:translateZ(26px)}}
 @keyframes degIn{from{opacity:0;transform:translateY(14px) translateZ(44px)}to{opacity:1;transform:translateZ(44px)}}
+@keyframes neon{0%,100%{box-shadow:0 0 12px rgba(255,255,255,.8),0 0 28px rgba(255,255,255,.45),0 0 52px rgba(255,255,255,.22),inset 0 0 12px rgba(255,255,255,.4)}
+  50%{box-shadow:0 0 20px rgba(255,255,255,1),0 0 46px rgba(255,255,255,.75),0 0 86px rgba(255,255,255,.42),inset 0 0 18px rgba(255,255,255,.7)}}
+@keyframes bigfloat{0%,100%{translate:0 0}50%{translate:0 -24px}}
+@keyframes pcIn{from{opacity:0;transform:scale(.78)}to{opacity:.94;transform:scale(1)}}
+@keyframes pcFloat{0%,100%{translate:0 0}50%{translate:0 -30px}}
 @keyframes cardin{from{opacity:0;transform:translateY(28px) rotateX(-20deg)}to{opacity:1;transform:none}}
 @keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(7vmax,5vmax) scale(1.14)}}
 @keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-6vmax,7vmax) scale(.88)}}
@@ -277,6 +306,11 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
 <header class="hero">
   <div class="campus" aria-hidden="true"></div>
   <canvas id="field"></canvas>
+  <div class="photodeck">
+    <figure class="pc pc1"><img src="img/yc.jpg" alt="Ayush Malik at Y Combinator Startup School India" loading="lazy"><figcaption>YC Startup School India</figcaption></figure>
+    <figure class="pc pc2"><img src="img/tower.jpg" alt="BITS Pilani clock tower" loading="lazy"><figcaption>BITS Pilani campus</figcaption></figure>
+    <figure class="pc pc3"><img src="img/drdo.jpg" alt="Defence Research &amp; Development Organisation" loading="lazy"><figcaption>DRDO · organisation</figcaption></figure>
+  </div>
   <div class="orbs" aria-hidden="true"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span></div>
   <div class="inner">
     <div class="avatar"><img src="img/ayush.jpg" alt="Ayush Malik" width="420" height="420"></div>
@@ -319,6 +353,34 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
   <a class="scrolldown" href="#contact" aria-label="scroll to contact">▼</a>
 </header>
 
+<!-- ================= ACHIEVEMENTS ================= -->
+<section class="section">
+  <h2 class="sec-title reveal">Trophy shelf <span class="tag" style="color:var(--amber);border:1px solid var(--amber)">proof of work</span></h2>
+  <p class="sec-sub reveal">National-level wins, not participation certificates.</p>
+  <div class="shelf">
+    <div class="medal reveal">
+      <div class="orb"><div class="halo" style="border-color:var(--amber)"></div><div class="coin" style="background:radial-gradient(circle at 35% 30%,#fde68a,#b45309)">🚀</div></div>
+      <h3>Y Combinator Startup School India</h3><span class="big" style="color:var(--amber)">25,000+</span>
+      <p>Selected in Bengaluru from applications across India</p>
+    </div>
+    <div class="medal reveal">
+      <div class="orb"><div class="halo" style="border-color:var(--cyan)"></div><div class="coin" style="background:radial-gradient(circle at 35% 30%,#a5f3fc,#0e7490)">🏆</div></div>
+      <h3>Smart India Hackathon</h3><span class="big" style="color:var(--cyan)">National Winner</span>
+      <p>Organised by the Government of India</p>
+    </div>
+    <div class="medal reveal">
+      <div class="orb"><div class="halo" style="border-color:var(--lime)"></div><div class="coin" style="background:radial-gradient(circle at 35% 30%,#d9f99d,#4d7c0f)">📈</div></div>
+      <h3>JEE Adv · JEE Mains · BITSAT</h3><span class="big" style="color:var(--lime)">Top 1 percentile</span>
+      <p>Nationwide, across all three entrance exams</p>
+    </div>
+    <div class="medal reveal">
+      <div class="orb"><div class="halo" style="border-color:var(--magenta)"></div><div class="coin" style="background:radial-gradient(circle at 35% 30%,#f5d0fe,#a21caf)">🔬</div></div>
+      <h3>INSPIRE Award ×2 &nbsp;·&nbsp; Ignite & Conquest</h3><span class="big" style="color:var(--magenta)">National ×2 · 4th</span>
+      <p>Govt of India national awards, twice · BITS flagship pitch, 4th nationwide</p>
+    </div>
+  </div>
+</section>
+
 <!-- ================= CONTACT DOCK ================= -->
 <section class="section" id="contact">
   <h2 class="sec-title reveal">Reach me <span class="tag" style="color:var(--lime);border:1px solid var(--lime)">always on</span></h2>
@@ -350,34 +412,6 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
       <div class="tray"><div class="sheet">PDF</div></div>
       <div class="cta">⏏ download the machine-readable version</div>
     </a>
-  </div>
-</section>
-
-<!-- ================= ACHIEVEMENTS ================= -->
-<section class="section">
-  <h2 class="sec-title reveal">Trophy shelf <span class="tag" style="color:var(--amber);border:1px solid var(--amber)">proof of work</span></h2>
-  <p class="sec-sub reveal">National-level wins, not participation certificates.</p>
-  <div class="shelf">
-    <div class="medal reveal">
-      <div class="orb"><div class="halo" style="border-color:var(--amber)"></div><div class="coin" style="background:radial-gradient(circle at 35% 30%,#fde68a,#b45309)">🚀</div></div>
-      <h3>Y Combinator Startup School India</h3><span class="big" style="color:var(--amber)">25,000+</span>
-      <p>Selected in Bengaluru from applications across India</p>
-    </div>
-    <div class="medal reveal">
-      <div class="orb"><div class="halo" style="border-color:var(--cyan)"></div><div class="coin" style="background:radial-gradient(circle at 35% 30%,#a5f3fc,#0e7490)">🏆</div></div>
-      <h3>Smart India Hackathon</h3><span class="big" style="color:var(--cyan)">National Winner</span>
-      <p>Organised by the Government of India</p>
-    </div>
-    <div class="medal reveal">
-      <div class="orb"><div class="halo" style="border-color:var(--lime)"></div><div class="coin" style="background:radial-gradient(circle at 35% 30%,#d9f99d,#4d7c0f)">📈</div></div>
-      <h3>JEE Adv · JEE Mains · BITSAT</h3><span class="big" style="color:var(--lime)">Top 1 percentile</span>
-      <p>Nationwide, across all three entrance exams</p>
-    </div>
-    <div class="medal reveal">
-      <div class="orb"><div class="halo" style="border-color:var(--magenta)"></div><div class="coin" style="background:radial-gradient(circle at 35% 30%,#f5d0fe,#a21caf)">🔬</div></div>
-      <h3>INSPIRE Award ×2 &nbsp;·&nbsp; Ignite & Conquest</h3><span class="big" style="color:var(--magenta)">National ×2 · 4th</span>
-      <p>Govt of India national awards, twice · BITS flagship pitch, 4th nationwide</p>
-    </div>
   </div>
 </section>
 
@@ -720,7 +754,17 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
         innerEl.style.transform = 'rotateY(' + (tx * 9).toFixed(2) + 'deg) rotateX(' + (-ty * 7).toFixed(2) + 'deg)';
       });
     }, { passive: true });
-    heroEl.addEventListener('pointerleave', function(){ innerEl.style.transform = ''; });
+    var pcs = [].slice.call(document.querySelectorAll('.pc'));
+    heroEl.addEventListener('pointermove', function(){
+      pcs.forEach(function(pc, i){
+        var d = (i + 1) * 13;
+        pc.style.transform = 'scale(1) translate3d(' + (-tx * d).toFixed(1) + 'px,' + (-ty * d * .6).toFixed(1) + 'px,0)';
+      });
+    }, { passive: true });
+    heroEl.addEventListener('pointerleave', function(){
+      innerEl.style.transform = '';
+      pcs.forEach(function(pc){ pc.style.transform = 'scale(1)'; });
+    });
   }
 
   /* ---------- card tilt ---------- */
