@@ -146,6 +146,8 @@ a{color:inherit}
   .cred,.pname,.degree,.bigline span,.avatar{animation-duration:.01ms;animation-delay:0s}
   .avatar::before,.avatar::after{animation:none}
   .cred,.pod,.medal,.xcard,.edu,.pc,.proof,.bigline span{animation-iteration-count:1;translate:none}
+  .ctrack{transition:none}
+  .cbar{display:none}
   .cred::after{animation:none;opacity:0}
   .hero .inner{transition:none}
 }
@@ -200,13 +202,33 @@ a{color:inherit}
 /* ---------- achievements shelf ---------- */
 .shelf{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
 .proof{position:relative;margin:0 0 26px;border:1px solid rgba(251,191,36,.34);border-radius:18px;
-  overflow:hidden;background:var(--surface);box-shadow:0 26px 70px rgba(0,0,0,.55),0 0 46px rgba(251,191,36,.09);
-  animation:bigfloat 9.5s ease-in-out infinite;transition:box-shadow .35s ease}
+  overflow:hidden;background:var(--bg2);box-shadow:0 26px 70px rgba(0,0,0,.55),0 0 46px rgba(251,191,36,.09);
+  animation:bigfloat 9.5s ease-in-out infinite;transition:box-shadow .35s ease;touch-action:pan-y;user-select:none}
 .proof:hover{box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 70px rgba(251,191,36,.2)}
-.proof img{display:block;width:100%;height:auto}
-.proof figcaption{font-size:13.2px;line-height:1.6;color:var(--muted);padding:13px 18px;
-  border-top:1px solid var(--line);background:var(--bg2);position:relative;z-index:2}
-.proof figcaption b{color:var(--amber);font-weight:700}
+.proof:focus-visible{outline:2px solid var(--amber);outline-offset:4px}
+.ctrack{display:flex;transition:transform .7s cubic-bezier(.65,0,.35,1);will-change:transform}
+.slide{flex:0 0 100%;min-width:0;margin:0;display:flex;flex-direction:column}
+.sframe{position:relative;aspect-ratio:16/10;max-height:72vh;overflow:hidden;background:#05070d}
+.sframe::before{content:"";position:absolute;inset:-40px;background:var(--img) center/cover no-repeat;
+  filter:blur(28px) brightness(.42) saturate(1.25)}
+.sframe img{position:relative;z-index:1;display:block;width:100%;height:100%;object-fit:contain;-webkit-user-drag:none}
+.slide figcaption{flex:1;font-size:13.2px;line-height:1.6;color:var(--muted);padding:13px 18px 15px;
+  border-top:1px solid var(--line);background:var(--bg2)}
+.slide figcaption b{display:block;color:var(--amber);font-weight:700;font-size:14.5px;margin-bottom:1px}
+.cbar{position:absolute;z-index:3;top:0;left:0;height:3px;width:0;
+  background:linear-gradient(90deg,var(--amber),var(--rose));box-shadow:0 0 12px rgba(251,191,36,.6)}
+.cbar.run{width:100%;transition:width 2s linear}
+.cctl{position:absolute;z-index:3;top:14px;right:14px;display:flex;align-items:center;gap:2px;
+  padding:3px 6px;border-radius:999px;background:rgba(5,7,13,.66);backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.1)}
+.cdots{display:flex}
+.cdot,.cplay{position:relative;width:26px;height:26px;border:0;padding:0;background:none;cursor:pointer;color:var(--ink)}
+.cplay{font-size:9px;letter-spacing:-1px;opacity:.8}
+.cplay:hover{opacity:1}
+.cdot::before{content:"";position:absolute;left:50%;top:50%;width:8px;height:8px;border-radius:5px;
+  transform:translate(-50%,-50%);background:rgba(255,255,255,.42);transition:width .3s ease,background .3s ease}
+.cdot[aria-current="true"]::before{width:20px;background:var(--amber)}
+.cdot:focus-visible,.cplay:focus-visible{outline:2px solid var(--amber);outline-offset:-2px;border-radius:6px}
 .medal{border:1px solid var(--line);border-radius:16px;padding:26px 18px 20px;background:linear-gradient(170deg,var(--surface),var(--bg2));text-align:center;position:relative;overflow:hidden;transition:transform .35s}
 .medal:hover{transform:translateY(-8px) scale(1.02)}
 .orb{position:relative;width:84px;height:84px;margin:0 auto 14px}
@@ -380,11 +402,36 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
 <section class="section">
   <h2 class="sec-title reveal">Trophy shelf <span class="tag" style="color:var(--amber);border:1px solid var(--amber)">proof of work</span></h2>
   <p class="sec-sub reveal">National-level wins, not participation certificates.</p>
-  <figure class="proof reveal">
-    <img src="img/sih-wide.jpg" alt="Ayush Malik receiving the Smart India Hackathon 2022 Grand Finale winner cheque" loading="lazy">
-    <span class="shine"></span>
-    <figcaption><b>Smart India Hackathon 2022 · Grand Finale, August 12</b> — winner's cheque made out to <b>Ayush Malik</b>, ₹25,000. Organised by the Ministry of Education's Innovation Cell &amp; AICTE.</figcaption>
-  </figure>
+  <div class="proof reveal" role="region" aria-roledescription="carousel" aria-label="Proof of work photographs" tabindex="0">
+    <div class="ctrack" aria-live="off">
+      <figure class="slide" role="group" aria-roledescription="slide" aria-label="1 of 4">
+        <div class="sframe" style="--img:url(img/sih-wide.jpg)"><img src="img/sih-wide.jpg" alt="Ayush Malik receiving the Smart India Hackathon 2022 Grand Finale winner cheque" width="1200" height="916" loading="lazy" decoding="async"></div>
+        <figcaption><b>Smart India Hackathon 2022 · National Winner</b>Grand Finale, August 12 — winner's cheque made out to Ayush Malik, ₹25,000 · Ministry of Education's Innovation Cell &amp; AICTE</figcaption>
+      </figure>
+      <figure class="slide" role="group" aria-roledescription="slide" aria-label="2 of 4">
+        <div class="sframe" style="--img:url(img/yc-wide.jpg)"><img src="img/yc-wide.jpg" alt="Ayush Malik at Y Combinator Startup School India" width="939" height="720" loading="lazy" decoding="async"></div>
+        <figcaption><b>Y Combinator Startup School India</b>Bengaluru — selected from 25,000+ applicants across India</figcaption>
+      </figure>
+      <figure class="slide" role="group" aria-roledescription="slide" aria-label="3 of 4">
+        <div class="sframe" style="--img:url(img/drdo-wide.jpg)"><img src="img/drdo-wide.jpg" alt="Defence Research &amp; Development Organisation team with the DRDO flag" width="1200" height="892" loading="lazy" decoding="async"></div>
+        <figcaption><b>DRDO · Defence Research &amp; Development Organisation</b>Organisation photo — Ayush was an ML research intern (landslide-susceptibility mapping, 2026)</figcaption>
+      </figure>
+      <figure class="slide" role="group" aria-roledescription="slide" aria-label="4 of 4">
+        <div class="sframe" style="--img:url(img/tower.jpg)"><img src="img/tower.jpg" alt="BITS Pilani clock tower, Pilani campus" width="400" height="502" loading="lazy" decoding="async"></div>
+        <figcaption><b>BITS Pilani · Pilani campus</b>B.Tech, Electronics &amp; Communication · photograph © Navaneeth</figcaption>
+      </figure>
+    </div>
+    <span class="cbar" aria-hidden="true"></span>
+    <div class="cctl">
+      <button class="cplay" type="button" aria-label="Pause slideshow">❚❚</button>
+      <div class="cdots" role="group" aria-label="Choose photo">
+        <button class="cdot" type="button" aria-label="Photo 1: Smart India Hackathon" aria-current="true"></button>
+        <button class="cdot" type="button" aria-label="Photo 2: Y Combinator Startup School"></button>
+        <button class="cdot" type="button" aria-label="Photo 3: DRDO"></button>
+        <button class="cdot" type="button" aria-label="Photo 4: BITS Pilani"></button>
+      </div>
+    </div>
+  </div>
   <div class="shelf">
     <div class="medal reveal">
       <div class="orb"><div class="halo" style="border-color:var(--amber)"></div><div class="coin" style="background:radial-gradient(circle at 35% 30%,#fde68a,#b45309)">🚀</div></div>
@@ -808,8 +855,86 @@ footer .mini{color:var(--muted);font-size:12px;margin-top:26px;font-family:var(-
   if (!reduced){
     document.querySelectorAll('.cred').forEach(function(el){ tilt(el, 11, 6); });
     document.querySelectorAll('.medal').forEach(function(el){ tilt(el, 9, 5); });
-    document.querySelectorAll('.proof').forEach(function(el){ tilt(el, 5, 4); });
     document.querySelectorAll('.pod:not(.holo)').forEach(function(el){ tilt(el, 7, 6); });
+  }
+
+  /* ---------- proof carousel ---------- */
+  var car = document.querySelector('.proof');
+  if (car){
+    var track = car.querySelector('.ctrack');
+    var slides = [].slice.call(track.children), n = slides.length;
+    var first = slides[0].cloneNode(true);
+    first.setAttribute('aria-hidden', 'true');
+    first.querySelectorAll('img').forEach(function(im){ im.alt = ''; });
+    track.appendChild(first);
+    var dots = [].slice.call(car.querySelectorAll('.cdot'));
+    var bar = car.querySelector('.cbar'), playBtn = car.querySelector('.cplay');
+    var DWELL = 2000, idx = 0, timer = null;
+    var paused = reduced, kbFocus = false, inView = false, primed = false;
+
+    function paint(){
+      var k = idx % n;
+      dots.forEach(function(d, i){ if (i === k) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
+      slides.forEach(function(sl, i){ sl.setAttribute('aria-hidden', i === k ? 'false' : 'true'); });
+    }
+    function go(i, instant){
+      idx = i;
+      track.style.transition = (instant || reduced) ? 'none' : '';
+      track.style.transform = 'translateX(' + (-100 * idx) + '%)';
+      paint();
+    }
+    function normalize(){ if (idx >= n){ go(0, true); void track.offsetWidth; } }
+    track.addEventListener('transitionend', function(e){ if (e.target === track && idx >= n) go(0, true); });
+
+    function schedule(){
+      clearTimeout(timer);
+      if (bar) bar.classList.remove('run');
+      track.setAttribute('aria-live', paused ? 'polite' : 'off');
+      if (paused || kbFocus || !inView || document.hidden) return;
+      if (bar && !reduced){ void bar.offsetWidth; bar.classList.add('run'); }
+      timer = setTimeout(next, DWELL);
+    }
+    function next(){ normalize(); go(idx + 1); schedule(); }
+    function prev(){
+      normalize();
+      if (idx === 0){ go(n, true); void track.offsetWidth; }
+      go(idx - 1); schedule();
+    }
+
+    dots.forEach(function(d, i){ d.addEventListener('click', function(){ normalize(); go(i); schedule(); }); });
+    playBtn.addEventListener('click', function(){
+      paused = !paused;
+      playBtn.textContent = paused ? '▶' : '❚❚';
+      playBtn.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
+      schedule();
+    });
+    if (paused){ playBtn.textContent = '▶'; playBtn.setAttribute('aria-label', 'Play slideshow'); }
+
+    car.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+      else if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+    });
+    car.addEventListener('focusin', function(e){ kbFocus = e.target.matches(':focus-visible'); schedule(); });
+    car.addEventListener('focusout', function(){ kbFocus = false; schedule(); });
+
+    var sx = null;
+    car.addEventListener('pointerdown', function(e){ sx = e.clientX; });
+    car.addEventListener('pointerup', function(e){
+      if (sx === null) return;
+      var dx = e.clientX - sx; sx = null;
+      if (Math.abs(dx) > 40){ if (dx < 0) next(); else prev(); }
+    });
+    car.addEventListener('pointercancel', function(){ sx = null; });
+
+    new IntersectionObserver(function(es){
+      if (es[0].isIntersecting && !primed){
+        primed = true;
+        track.querySelectorAll('img').forEach(function(im){ im.loading = 'eager'; });
+      }
+    }, { rootMargin: '600px 0px' }).observe(car);
+    new IntersectionObserver(function(es){ inView = es[0].isIntersecting; schedule(); }, { threshold: 0.3 }).observe(car);
+    document.addEventListener('visibilitychange', schedule);
+    go(0, true);
   }
 
   /* ---------- orb scroll parallax ---------- */
